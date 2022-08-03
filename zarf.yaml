@@ -1,0 +1,55 @@
+kind: ZarfPackageConfig
+metadata:
+  name: baffles
+  description: "Deploy Baffles and Flux"
+  architecture: amd64
+
+components:
+  - name: flux
+    required: true
+    manifests:
+      - name: flux-installer
+    kustomizations:
+      - https://repo1.dso.mil/platform-one/big-bang/bigbang.git//base/flux?ref=1.36.0
+    images:
+      - registry1.dso.mil/ironbank/fluxcd/helm-controller:v0.21.0
+      - registry1.dso.mil/ironbank/fluxcd/kustomize-controller:v0.25.0
+      - registry1.dso.mil/ironbank/fluxcd/notification-controller:v0.23.5
+      - registry1.dso.mil/ironbank/fluxcd/source-controller:v0.24.4
+
+  - name: cdi
+    required: true
+    charts:
+      - name: cdi
+        url: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/cdi.git
+        version: 0.0.1-bb.1
+        gitPath: chart
+        namespace: cdi
+        valuesFiles:
+          - kustomizations/baffles/cdi-values.yaml
+    images:
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-operator:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-controller:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-importer:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-cloner:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-apiserver:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-uploadserver:v1.52.0
+      - registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi/cdi-uploadproxy:v1.52.0
+
+
+  - name: kubevirt
+    required: true
+    charts:
+      - name: kubevirt
+        url: https://repo1.dso.mil/platform-one/big-bang/apps/third-party/kubevirt.git
+        version: 0.0.1-bb.2
+        gitPath: chart
+        namespace: kubevirt
+        valuesFiles:
+          - kustomizations/baffles/kubevirt-values.yaml
+    images:
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-api:v0.54.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-controller:v0.54.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-launcher:v0.54.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-handler:v0.54.0
+      - registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt/virt-operator:v0.54.0

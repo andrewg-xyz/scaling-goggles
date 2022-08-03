@@ -1,0 +1,29 @@
+deployment:
+  spec:
+    # -- replica count
+    replicas: 2
+    template:
+      spec:
+        containers:
+          image:
+            name: virt-operator
+            registry: registry.dso.mil/platform-one/big-bang/apps/third-party/kubevirt
+            version: v0.54.0
+          command:
+            port: 8443
+            verbosity: 2
+          ports:
+            metricsPort: 8443
+            webhooksPort: 8444
+          resources:
+            requests:
+              cpu: 10m
+              memory: 150Mi
+
+# Example of imagePullSecrets settings for private registry access.
+# The secrets themselves are created through the bigbang flux integration.
+#
+#   imagePullSecrets:
+#     - name: private-registry
+#     - name: repo1-read-creds
+imagePullSecrets: []

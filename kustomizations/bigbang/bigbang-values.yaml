@@ -1,0 +1,28 @@
+domain: bigbang.dev
+
+registryCredentials:
+  registry: "###ZARF_REGISTRY###"
+  username: "zarf-pull"
+  password: "###ZARF_REGISTRY_AUTH_PULL###"
+
+gatekeeper:
+  enabled: false
+cluster-auditor:
+  enabled: false
+twistlock:
+  enabled: false
+fluentbit:
+  # Known issue https://github.com/fluent/fluent-bit/issues/1777
+  enabled: false
+clusterAuditor:
+  enabled: false
+istio:
+  enabled: false
+istiooperator:
+  enabled: false
+jaeger:
+  enabled: false
+kiali:
+  enabled: false
+monitoring:
+  enabled: false

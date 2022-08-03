@@ -1,0 +1,47 @@
+deployment:
+  spec:
+    replicas: 1
+    template:
+      spec:
+        containers:
+          operator_image:
+            name: cdi-operator
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          controller_image:
+            name: cdi-controller
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          importer_image:
+            name: cdi-importer
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          cloner_image:
+            name: cdi-cloner
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          apiserver_image:
+            name: cdi-apiserver
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          upload_server_image:
+            name: cdi-uploadserver
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          upload_proxy_image:
+            name: cdi-uploadproxy
+            registry: registry.dso.mil/platform-one/big-bang/apps/sandbox/cdi
+            version: v1.52.0
+          ports:
+            metricsPort: 8443
+          resources:
+            requests:
+              cpu: 10m
+              memory: 150Mi
+imagePullSecrets: []
+
+rbac:
+  create: false
+
+serviceAccount:
+  create: false

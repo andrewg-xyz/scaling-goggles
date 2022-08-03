@@ -1,0 +1,9 @@
+resources:
+  - git::https://repo1.dso.mil/platform-one/big-bang/bigbang.git/base?ref=tags/1.36.0
+
+configMapGenerator:
+  - name: common
+    namespace: bigbang
+    behavior: merge
+    files:
+      - bigbang-values.yaml
